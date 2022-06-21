@@ -13,40 +13,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
-const fileCheck_1 = __importDefault(require("../fileCheck"));
 const sharp_1 = __importDefault(require("sharp"));
-const copmressimage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const filename = req.query.filename;
-        const fwidth = req.query.width;
-        const fheight = req.query.height;
-        // const filename: string= (requestQuery.filename as unknown)as string
-        // const fwidth:string = (requestQuery.fwidth as unknown)as string
-        // const fheight:string = (requestQuery.fheight as unknown)as string
-        const fullfilepath = path_1.default.join(__dirname, `..`, `..`, `..`, `assets`, `full`, `${filename}.jpg`);
-        const outpath = path_1.default.join(__dirname, `..`, `..`, `..`, `assets`, `thumb`, `${filename}-${fwidth}-${fheight}.jpg`);
-        //check if the file exist at first
-        if ((0, fileCheck_1.default)(outpath)) {
-            console.log(`the file already exist:${outpath}`);
-            // add the file to the cache
-            // res.sendFile(outpath)
-        }
-        else {
-            yield (0, sharp_1.default)(fullfilepath)
-                .resize(parseInt(fwidth), parseInt(fheight))
-                .toFile(outpath)
-                .then(data => {
-                console.log(data);
-            });
-        }
-        next();
-        res.sendFile(outpath);
-        return outpath;
+const fileCheck_1 = __importDefault(require("../fileCheck"));
+const imageProcessing = (filename, fwidth, fheight) => __awaiter(void 0, void 0, void 0, function* () {
+    const fullfilepath = path_1.default.resolve(`.`, `assets`, `full`, `${filename}.jpg`);
+    console.log();
+    const outpath = path_1.default.resolve(`.`, `assets`, `thumb`, `${filename}-${fwidth}-${fheight}.jpg`);
+    // const height=parseInt(fheight)
+    // const width=parseInt(fwidth)
+    //check if the file exist at first
+    if (yield (0, fileCheck_1.default)(outpath)) {
+        console.log(`the file already exist:${outpath}`);
+        // add the file to the cache
+        // res.sendFile(outpath)
     }
-    catch (err) {
-        console.log(`$the resize process throw the following error:{err}`);
-        next();
-        return null;
+    else {
+        (0, sharp_1.default)(fullfilepath)
+            .resize(parseInt(fwidth), parseInt(fheight))
+            .toFile(outpath)
+            .then(data => {
+            console.log(data);
+        });
     }
+    return outpath;
 });
-exports.default = copmressimage;
+exports.default = imageProcessing;

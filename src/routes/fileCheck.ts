@@ -1,10 +1,11 @@
 import {existsSync} from 'fs'
 
-export const fileCheck=(filePath:string):boolean=>{
-    if(existsSync(filePath)){
-        return true;
-       
-    }else{
+export const fileCheck=async(filePath:string):Promise<boolean>=>{
+   
+   try{
+    const status = await existsSync(filePath)
+    return status
+   }catch(err){
         return false;
 }
 }

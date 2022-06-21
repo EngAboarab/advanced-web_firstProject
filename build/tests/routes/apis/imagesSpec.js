@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const images_1 = __importDefault(require("../../../routes/apis/images"));
-describe(`the testing of the image processing function `, () => {
+describe(`the testing of the image processing enpoint `, () => {
     it('the "/api/images" endpoint testing by supertest expected to give status 200', () => __awaiter(void 0, void 0, void 0, function* () {
         (0, supertest_1.default)(images_1.default).get("/api/images")
             .expect(200);
