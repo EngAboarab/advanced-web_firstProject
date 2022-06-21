@@ -6,8 +6,8 @@ this server will listen to your request where it is used for allows you to place
 set via URL parameters (and additional stylization if you choose) for rapid prototyping
 
 ## scripts:
- ```npm run test ```: to run jasmine unit testing
- ```npm run start```: to run build and start the server
+ 1. ```npm run test ```: to run jasmine unit testing
+ 2. ```npm run start```: to run build and start the server
 
 
 ## server
