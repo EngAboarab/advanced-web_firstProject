@@ -17,21 +17,21 @@ import fileCheck from '../fileCheck'
             console.log(`the file already exist:${outpath}`)
             // add the file to the cache
             // res.sendFile(outpath)
-           
+           return outpath
 
         } else {
-            sharp(fullfilepath)
+            await sharp(fullfilepath)
                 .resize(parseInt(fwidth), parseInt(fheight))
                 .toFile(outpath)
-                .then(data => {
-                    console.log(data)
-
-                   
+                .then(() => {
+                 
+                    console.log(`processing done`)
+                 
                 })
-
+                return outpath
         }
 
-     return outpath
+     
    
 
 
